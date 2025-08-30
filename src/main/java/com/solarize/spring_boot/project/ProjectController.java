@@ -64,8 +64,8 @@ public class ProjectController {
         return ResponseEntity.status(204).build();
     }
 
-    @GetMapping("technical/{id}/")
-    public ResponseEntity<List<Project>> getProjectsByTechnical(@PathVariable Integer id){
+    @GetMapping("byTechinical/")
+    public ResponseEntity<List<Project>> getProjectsByTechnical(@RequestParam Integer id){
         List<Project> projects = REPOSITORY.findByTechnicalId(id);
 
         if( projects.isEmpty() ) {

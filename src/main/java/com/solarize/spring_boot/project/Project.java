@@ -18,8 +18,8 @@ public class Project {
     private String engineer; // TODO implementar classe Engineer
     private String client; // TODO implementar classe Client
 
-    @OneToOne
-    @JoinColumn
+    @ManyToOne
+    @JoinColumn(name = "technical_id")
     private Technical technical;
 
     public Integer getId() {
