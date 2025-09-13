@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("technicals/")
+@RequestMapping("/technicals")
 public class TechnicalController {
     private final TechnicalRepository REPOSITORY;
 
@@ -23,7 +23,7 @@ public class TechnicalController {
                 .body(REPOSITORY.save(technical));
     }
 
-    @GetMapping("{id}/")
+    @GetMapping("/{id}")
     public ResponseEntity<Technical> getTechnical(@PathVariable Integer id){
         Optional<Technical> technical = REPOSITORY.findById(id);
 
@@ -47,7 +47,7 @@ public class TechnicalController {
                 .body(technicals);
     }
 
-    @PutMapping("{id}/")
+    @PutMapping("/{id}")
     public ResponseEntity<Technical> putTechnical(@PathVariable Integer id, @RequestBody Technical technical){
         if( REPOSITORY.findById(id).isEmpty() ){
             return ResponseEntity.status(404).build();
@@ -55,7 +55,7 @@ public class TechnicalController {
         return ResponseEntity.status(200).body( REPOSITORY.save(technical) );
     }
 
-    @DeleteMapping("{id}/")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTechnical(@PathVariable Integer id){
         if( REPOSITORY.findById(id).isEmpty() ){
             return ResponseEntity.status(404).build();
@@ -65,7 +65,7 @@ public class TechnicalController {
         return ResponseEntity.status(204).build();
     }
 
-    @GetMapping("byName/")
+    @GetMapping("/byName")
     public ResponseEntity<List<Technical>> getTechnicalsByName(@RequestParam String name){
         List<Technical> technicals = REPOSITORY.findByNameContainingIgnoreCase(name);
 
