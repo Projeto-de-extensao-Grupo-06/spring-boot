@@ -7,7 +7,7 @@ import java.util.List;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("projects/")
+@RequestMapping("/projects")
 public class ProjectController {
     private final ProjectRepository REPOSITORY;
 
@@ -22,7 +22,7 @@ public class ProjectController {
                 .body(REPOSITORY.save(project));
     }
 
-    @GetMapping("{id}/")
+    @GetMapping("/{id}")
     public ResponseEntity<Project> getProject(@PathVariable Integer id){
         Optional<Project> project = REPOSITORY.findById(id);
 
@@ -46,7 +46,7 @@ public class ProjectController {
                 .body(projects);
     }
 
-    @PutMapping("{id}/")
+    @PutMapping("/{id}")
     public ResponseEntity<Project> putProject(@PathVariable Integer id, @RequestBody Project project){
         if( REPOSITORY.findById(id).isEmpty() ){
             return ResponseEntity.status(404).build();
@@ -54,7 +54,7 @@ public class ProjectController {
         return ResponseEntity.status(200).body( REPOSITORY.save(project) );
     }
 
-    @DeleteMapping("{id}/")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteProject(@PathVariable Integer id){
         if( REPOSITORY.findById(id).isEmpty() ){
             return ResponseEntity.status(404).build();
@@ -64,7 +64,7 @@ public class ProjectController {
         return ResponseEntity.status(204).build();
     }
 
-    @GetMapping("byTechinical/")
+    @GetMapping("/byTechinical")
     public ResponseEntity<List<Project>> getProjectsByTechnical(@RequestParam Integer id){
         List<Project> projects = REPOSITORY.findByTechnicalId(id);
 
