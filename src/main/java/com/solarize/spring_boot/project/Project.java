@@ -6,17 +6,23 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
+@Table(name = "project")
 public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    private Double totalVale;
+    
+    private Double totalValue;
     private List<String> itensToInstall; // TODO implementar classe Item
     private String status;
 
     private String engineer; // TODO implementar classe Engineer
     private String client; // TODO implementar classe Client
+
+    private List<String> coworkers; // TODO implementar classe Coworker
+    private List<String> address; // TODO implementar classe Address
+    private List<String> budget; // TODO implementar classe Budget
+    private List<String> schedules; // TODO implementar classe Schedule
 
     @ManyToOne
     @JoinColumn(name = "technical_id")
@@ -26,12 +32,44 @@ public class Project {
         return id;
     }
 
-    public Double getTotalVale() {
-        return totalVale;
+    public Double getTotalValue() {
+        return totalValue;
     }
 
-    public void setTotalVale(Double totalVale) {
-        this.totalVale = totalVale;
+    public void setTotalValue(Double totalValue) {
+        this.totalValue = totalValue;
+    }
+
+    public List<String> getCoworkers() {
+        return coworkers;
+    }
+
+    public void setCoworkers(List<String> coworkers) {
+        this.coworkers = coworkers;
+    }
+
+    public List<String> getAddress() {
+        return address;
+    }
+
+    public void setAddress(List<String> address) {
+        this.address = address;
+    }
+
+    public List<String> getBudget() {
+        return budget;
+    }
+
+    public void setBudget(List<String> budget) {
+        this.budget = budget;
+    }
+
+    public List<String> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<String> schedules) {
+        this.schedules = schedules;
     }
 
     public List<String> getItensToInstall() {
@@ -73,4 +111,6 @@ public class Project {
     public void setTechnical(Technical technical) {
         this.technical = technical;
     }
+
+
 }
