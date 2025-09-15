@@ -11,7 +11,7 @@ public class Project {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    
+
     private Double totalValue;
     private List<String> itensToInstall; // TODO implementar classe Item
     private String status;
@@ -24,9 +24,9 @@ public class Project {
     private List<String> budget; // TODO implementar classe Budget
     private List<String> schedules; // TODO implementar classe Schedule
 
-    @ManyToOne
-    @JoinColumn(name = "technical_id")
-    private Technical technical;
+//    @ManyToOne
+//    @JoinColumn(name = "technical_id")
+//    private Technical technical;
 
     public Integer getId() {
         return id;
@@ -104,13 +104,11 @@ public class Project {
         this.client = client;
     }
 
-    public Technical getTechnical() {
-        return technical;
-    }
-
-    public void setTechnical(Technical technical) {
-        this.technical = technical;
-    }
-
-
+//    public Technical getTechnical() {
+//        return technical;
+//    }
+//
+//    public void setTechnical(Technical technical) {
+//        this.technical = technical;
+//    }
 }

@@ -14,8 +14,8 @@ public class ProjectService {
         this.REPOSITORY = REPOSITORY;
     }
 
-    public Project postProject(Project projectToPost) {
-        return REPOSITORY.save(projectToPost);
+    public Project postProject(Project project) {
+        return REPOSITORY.save(project);
     }
 
     public Project getProject(Integer id) {
@@ -28,11 +28,11 @@ public class ProjectService {
         return REPOSITORY.findAll();
     }
 
-    public Project putProject(Integer id, Project projectToPut) {
+    public Project putProject(Integer id, Project project) {
         if(REPOSITORY.findById(id).isEmpty()) {
             throw new EntityNotFoundException("");
         }
-        return REPOSITORY.save(projectToPut);
+        return REPOSITORY.save(project);
     }
 
     public void deleteProject(Integer id) {
@@ -42,11 +42,11 @@ public class ProjectService {
         REPOSITORY.deleteById(id);
     }
 
-    public List<Project> getProjectsByTechnical(Integer id) {
-        if(REPOSITORY.findByTechnicalId(id).isEmpty()) {
-            throw new EntityNotFoundException("");
-        }
-        return REPOSITORY.findByTechnicalId(id);
-    }
+//    public List<Project> getProjectsByTechnical(Integer id) {
+//        if(REPOSITORY.findByTechnicalId(id).isEmpty()) {
+//            throw new EntityNotFoundException("");
+//        }
+//        return REPOSITORY.findByTechnicalId(id);
+//    }
 
 }
