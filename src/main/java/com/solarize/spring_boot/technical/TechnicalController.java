@@ -1,6 +1,8 @@
 package com.solarize.spring_boot.technical;
 
 import com.solarize.spring_boot.technical.Technical;
+import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,70 +12,48 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/technicals")
 public class TechnicalController {
-    private final TechnicalRepository REPOSITORY;
 
-    public TechnicalController(TechnicalRepository REPOSITORY) {
-        this.REPOSITORY = REPOSITORY;
+    private final TechnicalService SERVICE;
+
+    public TechnicalController(TechnicalService SERVICE) {
+        this.SERVICE = SERVICE;
     }
 
     @PostMapping
-    public ResponseEntity<Technical> postTechnical(@RequestBody Technical technical){
-        return ResponseEntity
-                .status(201)
-                .body(REPOSITORY.save(technical));
+    public ResponseEntity<Technical> postTechnical(@Valid @RequestBody Technical technical){
+       return ResponseEntity
+               .status(201).body(SERVICE.postTechnical(technical));
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Technical> getTechnical(@PathVariable Integer id){
-        Optional<Technical> technical = REPOSITORY.findById(id);
-
-        if( technical.isEmpty() ) {
-            return ResponseEntity.status(404).build();
-        }
-        return ResponseEntity
-                .status(200)
-                .body(technical.get());
+        return ResponseEntity.status(200).body(SERVICE.getTechnical(id));
     }
 
     @GetMapping
     public ResponseEntity<List<Technical>> getTechnicals(){
-        List<Technical> technicals = REPOSITORY.findAll();
-
-        if( technicals.isEmpty() ){
+        if(SERVICE.getTechnicals().isEmpty()) {
             return ResponseEntity.status(204).build();
         }
-        return ResponseEntity
-                .status(200)
-                .body(technicals);
+        return ResponseEntity.status(200).body(SERVICE.getTechnicals());
     }
 
     @PutMapping("/{id}")
     public ResponseEntity<Technical> putTechnical(@PathVariable Integer id, @RequestBody Technical technical){
-        if( REPOSITORY.findById(id).isEmpty() ){
-            return ResponseEntity.status(404).build();
-        }
-        return ResponseEntity.status(200).body( REPOSITORY.save(technical) );
+        return ResponseEntity.status(201).body(SERVICE.putTechnical(id,technical));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteTechnical(@PathVariable Integer id){
-        if( REPOSITORY.findById(id).isEmpty() ){
-            return ResponseEntity.status(404).build();
-        }
-
-        REPOSITORY.deleteById(id);
+        SERVICE.deleteTechnical(id);
         return ResponseEntity.status(204).build();
     }
 
-    @GetMapping("/byName")
-    public ResponseEntity<List<Technical>> getTechnicalsByName(@RequestParam String name){
-        List<Technical> technicals = REPOSITORY.findByNameContainingIgnoreCase(name);
-
-        if( technicals.isEmpty() ) {
-            return ResponseEntity.status(204).build();
-        }
-        return ResponseEntity
-                .status(200)
-                .body(technicals);
-    }
+//    @GetMapping("/byName")
+//    public ResponseEntity<List<Technical>> getTechnicalsByName(@RequestParam String name){
+//        if(SERVICE.getTechnicalsByName(name).isEmpty()) {
+//            return ResponseEntity.status(204).build();
+//        }
+//        return ResponseEntity.status(200).body(SERVICE.getTechnicalsByName(name));
+//    }
 }
