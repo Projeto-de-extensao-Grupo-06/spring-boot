@@ -1,7 +1,9 @@
 package com.solarize.spring_boot.project;
 
+import com.solarize.spring_boot.client.Client;
 import com.solarize.spring_boot.technical.Technical;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Positive;
 
 import java.util.List;
 
@@ -12,47 +14,31 @@ public class Project {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
+    @Positive
     private Double totalValue;
     private List<String> itensToInstall; // TODO implementar classe Item
     private String status;
 
     private String engineer; // TODO implementar classe Engineer
-    private String client; // TODO implementar classe Client
+
+    @ManyToOne
+    @JoinColumn(name = "client_id")
+    private Client client;
 
     private List<String> coworkers; // TODO implementar classe Coworker
-    private List<String> address; // TODO implementar classe Address
+    private String address; // TODO implementar classe Address
     private List<String> budget; // TODO implementar classe Budget
     private List<String> schedules; // TODO implementar classe Schedule
 
-//    @ManyToOne
-//    @JoinColumn(name = "technical_id")
-//    private Technical technical;
+    @ManyToOne
+    @JoinColumn(name = "technical_id")
+    private Technical technical;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public Double getTotalValue() {
-        return totalValue;
-    }
-
-    public void setTotalValue(Double totalValue) {
-        this.totalValue = totalValue;
-    }
-
-    public List<String> getCoworkers() {
-        return coworkers;
-    }
-
-    public void setCoworkers(List<String> coworkers) {
-        this.coworkers = coworkers;
-    }
-
-    public List<String> getAddress() {
+    public String getAddress() {
         return address;
     }
 
-    public void setAddress(List<String> address) {
+    public void setAddress(String address) {
         this.address = address;
     }
 
@@ -64,28 +50,20 @@ public class Project {
         this.budget = budget;
     }
 
-    public List<String> getSchedules() {
-        return schedules;
+    public Client getClient() {
+        return client;
     }
 
-    public void setSchedules(List<String> schedules) {
-        this.schedules = schedules;
+    public void setClient(Client client) {
+        this.client = client;
     }
 
-    public List<String> getItensToInstall() {
-        return itensToInstall;
+    public List<String> getCoworkers() {
+        return coworkers;
     }
 
-    public void setItensToInstall(List<String> itensToInstall) {
-        this.itensToInstall = itensToInstall;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public void setCoworkers(List<String> coworkers) {
+        this.coworkers = coworkers;
     }
 
     public String getEngineer() {
@@ -96,19 +74,51 @@ public class Project {
         this.engineer = engineer;
     }
 
-    public String getClient() {
-        return client;
+    public Integer getId() {
+        return id;
     }
 
-    public void setClient(String client) {
-        this.client = client;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
-//    public Technical getTechnical() {
-//        return technical;
-//    }
-//
-//    public void setTechnical(Technical technical) {
-//        this.technical = technical;
-//    }
+    public List<String> getItensToInstall() {
+        return itensToInstall;
+    }
+
+    public void setItensToInstall(List<String> itensToInstall) {
+        this.itensToInstall = itensToInstall;
+    }
+
+    public List<String> getSchedules() {
+        return schedules;
+    }
+
+    public void setSchedules(List<String> schedules) {
+        this.schedules = schedules;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Technical getTechnical() {
+        return technical;
+    }
+
+    public void setTechnical(Technical technical) {
+        this.technical = technical;
+    }
+
+    public Double getTotalValue() {
+        return totalValue;
+    }
+
+    public void setTotalValue(Double totalValue) {
+        this.totalValue = totalValue;
+    }
 }
